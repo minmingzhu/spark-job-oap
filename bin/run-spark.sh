@@ -48,7 +48,7 @@ ssh(){	# Intercept ssh call to pass more envs.  Requires spark using bash.
 	local -ir st=$?
 	#echo "[ Hijacked ssh returned with status: $st]"
 	((st==0)) || return $st
-	if mkdir "$SPARKJOB_WORKING_ENVS.lock">/dev/null 2>&1;then	# We use POSIX mkdir for a mutex.
+	if mkdir -p "$SPARKJOB_WORKING_ENVS.lock">/dev/null 2>&1;then	# We use POSIX mkdir for a mutex.
 	{
 		declare -p | grep SPARK	# Get SPARK related envs.
 		echo "declare -x SPARK_MASTER_URI=${cs[${#cs[@]}-1]}"
