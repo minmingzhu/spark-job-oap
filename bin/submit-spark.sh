@@ -6,7 +6,7 @@ set -u
 	declare SPARKJOB_SCRIPTS_DIR="$(cd $(dirname "$0")&&pwd)"
 
 declare -r configdir="$(pwd)"
-declare -r version='Spark DAOS Job  v1.0.3 for Sunspot'
+declare -r version='Spark DAOS Job  v1.0.3 for Sunspot/Aurora'
 declare -r usage="$version"'
 
 Usage:
