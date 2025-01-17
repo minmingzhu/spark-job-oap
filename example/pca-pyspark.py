@@ -18,7 +18,6 @@
 import sys
 
 sys.path.append('..')
-from utils.utils import Timer
 import traceback
 
 from pyspark.ml.feature import PCA
@@ -48,18 +47,10 @@ if __name__ == "__main__":
             uriStr = sys.argv[1]
         if argLen > 2:
             k = int(sys.argv[2])
-        if argLen > 3:
-            executorNum = int(sys.argv[3])
 
-        metrics_name = "PCA_" + str(executorNum)
-        pca_timer = Timer(metrics_name)
-        pca_timer.record("Start")
         # INIT
         k = defaultK
         spark = SparkSession.builder.appName("PCA Example - HiBench Dataset, " + params).getOrCreate()
-        # INIT end
-        pca_timer.record("Init")
-        # Preprocessing start
         df = spark.read.parquet(uriStr).toDF("features")
 
         pca = PCA(k=k, inputCol="features", outputCol="pcaFeatures")
@@ -74,6 +65,3 @@ if __name__ == "__main__":
         raise Exception(helpMsg) from e
     finally:
        spark.stop()
-       # Postprocessing
-       pca_timer.record("Postprocessing")
-       pca_timer.printTimeTable()

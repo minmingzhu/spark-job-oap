@@ -23,7 +23,6 @@ Run with:
 import sys
 
 sys.path.append('..')
-from utils.utils import Timer
 import traceback
 
 # $example on$
@@ -53,13 +52,7 @@ if __name__ == "__main__":
         if argLen > 2:
             executorNum = sys.argv[2]
 
-        metrics_name = "Correlation_" + str(executorNum)
-        correlation_timer = Timer(metrics_name)
-        correlation_timer.record("Start")
         spark = SparkSession.builder.appName("Correlation Example - HiBench Dataset, " + params).getOrCreate()
-        # INIT end
-        correlation_timer.record("Init")
-        # Preprocessing start
         # $example on$
         df = spark.read.parquet(uriStr).toDF("features")
         r1 = Correlation.corr(df, "features").head()
@@ -72,6 +65,3 @@ if __name__ == "__main__":
         raise Exception(helpMsg) from e
     finally:
        spark.stop()
-       # Postprocessing
-       correlation_timer.record("Postprocessing")
-       correlation_timer.printTimeTable()

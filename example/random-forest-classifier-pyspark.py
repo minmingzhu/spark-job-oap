@@ -22,7 +22,6 @@ Random Forest Classifier Example.
 import sys
 
 sys.path.append('..')
-from utils.utils import Timer
 import traceback
 
 from pyspark.ml import Pipeline
@@ -53,20 +52,10 @@ if __name__ == "__main__":
         if argLen > 1:
             uriStr = sys.argv[1]
         if argLen > 2:
-            executorNum = sys.argv[2]
-        if argLen > 3:
-            treescount = sys.argv[3]
+            treescount = sys.argv[2]
 
-
-        metrics_name = "RFClassifier_" + str(executorNum)
-        rf_classifier_timer = Timer(metrics_name)
-        rf_classifier_timer.record("Start")
-        # INIT
         spark = SparkSession.builder.appName(
             "RandomForest Classifier Example - HiBench Dataset, " + params).getOrCreate()
-        # INIT end
-        rf_classifier_timer.record("Init")
-        # Preprocessing start
         # $example on$
         # Load and parse the data file, converting it to a DataFrame.
         data = spark.read.parquet(uriStr).toDF("label", "features")
@@ -119,6 +108,3 @@ if __name__ == "__main__":
         raise Exception(helpMsg) from e
     finally:
         spark.stop()
-        # Postprocessing
-        rf_classifier_timer.record("Postprocessing")
-        rf_classifier_timer.printTimeTable()

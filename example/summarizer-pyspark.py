@@ -26,7 +26,6 @@ from pyspark.mllib.linalg import Vectors
 from pyspark.mllib.stat import Statistics
 
 sys.path.append('..')
-from utils.utils import Timer
 import traceback
 
 from pyspark.sql import SparkSession
@@ -48,19 +47,9 @@ if __name__ == "__main__":
         argLen = len(sys.argv)
         if argLen > 1:
             uriStr = sys.argv[1]
-        if argLen > 2:
-            executorNum = sys.argv[2]
 
-        metrics_name = "Summarizer_" + str(executorNum)
-        summarizer_timer = Timer(metrics_name)
-        summarizer_timer.record("Start")
-        # INIT
         spark = SparkSession.builder.appName("Summarizer Example - HiBench Dataset, " + params).getOrCreate()
-        # INIT end
-        summarizer_timer.record("Init")
-        # Preprocessing start
         # $example on$
-
         df = spark.read.parquet(uriStr).toDF("features")
         rdd = df.select("features").rdd.map(lambda row: Vectors.dense(row.features))
 
@@ -75,6 +64,3 @@ if __name__ == "__main__":
         raise Exception(helpMsg) from e
     finally:
         spark.stop()
-        # Postprocessing
-        summarizer_timer.record("Postprocessing")
-        summarizer_timer.printTimeTable()

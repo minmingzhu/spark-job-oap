@@ -1,7 +1,6 @@
 import sys
 
 sys.path.append('..')
-from utils.utils import Timer
 import traceback
 from time import time
 from pyspark.sql import SparkSession
@@ -38,24 +37,12 @@ if __name__ == "__main__":
             k = int(sys.argv[2])
         if argLen > 3:
             iters = int(sys.argv[3])
-        if argLen > 4:
-            executorNum = sys.argv[4]
-
-        metrics_name = "Kmeans_" + executorNum
-        kmeans_timer = Timer(metrics_name)
-        kmeans_timer.record("Start")
 
         spark = SparkSession.builder \
             .appName("Dense KMeans Example - HiBench Dataset, " + params).getOrCreate()
 
-        # INIT end
-        kmeans_timer.record("Init")
-        # Preprocessing start
         df = spark.read.parquet(uriStr).toDF("features")
 
-        # INIT end
-        kmeans_timer.record("Init")
-        # Preprocessing start
         kmeans = KMeans()
         kmeans.setK(k)
         kmeans.setMaxIter(iters)
@@ -89,7 +76,4 @@ if __name__ == "__main__":
         raise Exception(helpMsg) from e
     finally:
        spark.stop()
-       #Postprocessing
-       kmeans_timer.record("Postprocessing")
-       kmeans_timer.printTimeTable()
 

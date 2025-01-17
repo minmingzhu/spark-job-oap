@@ -1,5 +1,5 @@
 # set components path
-export APPS_DIR=/lus/gecko/projects/Aurora_deployment/spark/
+export APPS_DIR=/lus/flare/projects/Aurora_deployment/spark/
 
 # HOME directories
 # SPARK

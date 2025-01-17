@@ -1,7 +1,6 @@
 import sys
 
 sys.path.append('..')
-from utils.utils import Timer
 import traceback
 
 from pyspark.ml.regression import LinearRegression
@@ -31,16 +30,8 @@ if __name__ == "__main__":
             uriStr = sys.argv[1]
         if argLen > 2:
             treescount = sys.argv[2]
-        if argLen > 3:
-            executorNum = sys.argv[3]
 
-        metrics_name = "LinearRegression_" + str(executorNum)
-        linear_regression_timer = Timer(metrics_name)
-        linear_regression_timer.record("Start")
         spark = SparkSession.builder.appName("Linear Regression Example - HiBench Dataset, " + params).getOrCreate()
-        # INIT end
-        linear_regression_timer.record("Init")
-        # Preprocessing start
         # $example on$
         # Load and parse the data file, converting it to a DataFrame.
         data = spark.read.parquet(uriStr).toDF("label", "features")
@@ -71,6 +62,3 @@ if __name__ == "__main__":
         raise Exception(helpMsg) from e
     finally:
         spark.stop()
-        # Postprocessing
-        linear_regression_timer.record("Postprocessing")
-        linear_regression_timer.printTimeTable()
