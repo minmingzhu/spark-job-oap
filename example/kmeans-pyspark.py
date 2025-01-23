@@ -14,8 +14,7 @@ defaultInitMode = "random"
 helpMsg = "\nParameter's order is,\n" + \
           f"1, datset URI (default: {defaultUri} )\n" + \
           f"2, k (default: {defaultK} )\n" + \
-          f"3, max iteration (default: {defaultIters} )\n" + \
-          f"4, executorNum \n"
+          f"3, max iteration (default: {defaultIters} )\n"
 
 print("Running 'Dense KMeans Example - HiBench Dataset:\n")
 params = ' '.join([e for e in sys.argv])

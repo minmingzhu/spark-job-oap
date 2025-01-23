@@ -33,8 +33,7 @@ from pyspark.sql import SparkSession
 defaultUri = "daos://pool0/cont1/Correlation/input/libsvm"
 
 helpMsg = "\nParameter's order is,\n" + \
-          f"1, datset URI (default: {defaultUri} )\n" + \
-          f"2, executorNum \n"
+          f"1, datset URI (default: {defaultUri} )\n"
 
 print("Running 'Correlation Example - HiBench Dataset:\n")
 params = ' '.join([e for e in sys.argv])

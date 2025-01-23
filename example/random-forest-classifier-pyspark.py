@@ -36,8 +36,7 @@ defaultTreesCount = 10
 
 helpMsg = "\nParameter's order is,\n" + \
           f"1, datset URI (default: {defaultUri} )\n" + \
-          f"2, trees count (default: {defaultTreesCount} )\n" + \
-          f"3, executorNum \n"
+          f"2, trees count (default: {defaultTreesCount} )\n"
 
 print("Running 'RandomForest Classifier Example - HiBench Dataset:\n")
 params = ' '.join([e for e in sys.argv])

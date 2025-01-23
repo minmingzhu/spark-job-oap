@@ -18,6 +18,9 @@ export SPARKJOB_CONFIG_DIR
 	declare SPARKJOB_OUTPUT_DIR="$(pwd)"
 export SPARKJOB_OUTPUT_DIR
 
+NNODES=$(wc -l < "$PBS_NODEFILE")
+export EXECUTOR_NUM=$((12 * NNODES))
+
 source "$SPARKJOB_SCRIPTS_DIR/setup.sh"
 echo "sourced $SPARKJOB_SCRIPTS_DIR/setup.sh"
 
