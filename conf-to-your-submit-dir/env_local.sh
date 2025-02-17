@@ -31,11 +31,12 @@ spark.executor.cores                 8
 spark.driver.memory                  128g
 #spark.executor.memory                28g
 spark.executor.memory		     41g
+spark.executor.instances             $EXECUTOR_NUM
 
-#spark.worker.resourcesFile           $GPU_RESOURCE_FILE
-#spark.worker.resource.gpu.amount     $GPU_WORKER_AMOUNT
-#spark.executor.resource.gpu.amount   1
-#spark.task.resource.gpu.amount       0.001
+spark.worker.resourcesFile           $GPU_RESOURCE_FILE
+spark.worker.resource.gpu.amount     $GPU_WORKER_AMOUNT
+spark.executor.resource.gpu.amount   1
+spark.task.resource.gpu.amount       0.001
 
 spark.driver.extraJavaOptions        -XX:+UseG1GC -Djava.net.preferIPv4Stack=true
 spark.executor.extraJavaOptions      -XX:+UseG1GC -Djava.net.preferIPv4Stack=true
@@ -74,11 +75,8 @@ spark.task.maxFailures  4
 spark.stage.maxConsecutiveAttempts      1
 
 spark.shuffle.daos.read.wait.ms		600000
-spark.oap.mllib.performance.recording true
-spark.oap.mllib.record.output.path $SPARKJOB_CONFIG_DIR
 #spark.local.dir /home/damon/tmp
 
-spark.oap.mllib.kvsStorePath $SPARK_CONF_DIR
 EOF
 
 [[ -s $SPARK_CONF_DIR/spark-env.sh ]] ||

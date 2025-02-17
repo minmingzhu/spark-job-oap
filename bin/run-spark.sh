@@ -150,45 +150,12 @@ if (($#>0));then
 	elif [[ $1 == spark-submit ]];then
 		echo "submitting spark job $@"
 		"$SPARK_HOME/bin/spark-submit" --master $SPARK_MASTER $GPU_OPTIONS "$@"
-                echo ${SPARKJOB_SCRIPTS_DIR}
-		echo $SPARKJOB_CONFIG_DIR
-		filename=$(echo "$1" | awk -F'/' '{print $NF}')
-                algo_type=$(echo "$filename" | cut -d'-' -f1)
-                file_path=$2
-
-                echo $algo_type
-
-                case $algo_type in
-                  "kmeans")
-                    breakdown_type="KMeans1time_breakdown"
-                    ;;
-                  "pca")
-                    breakdown_type="PCA1time_breakdown"
-                    ;;
-                  "correlation")
-                    breakdown_type="Correlation1time_breakdown"
-                    ;;
-                  "summarizer")
-                    breakdown_type="Summarizer1time_breakdown"
-                    ;;
-                  *)
-                    echo "Unknown fruit"
-                    exit
-                    ;;
-               esac
-               echo "generate"
-	       echo $algo_type
-	       echo $SPARKJOB_CONFIG_DIR/$breakdown_type
-	       echo $file_path
-	       echo "$SPARKJOB_SCRIPTS_DIR/gen_report.sh"
-               "$SPARKJOB_SCRIPTS_DIR/gen_report.sh" "$algo_type" "$SPARKJOB_CONFIG_DIR/$breakdown_type" "$file_path"
-	else
+        else
                echo "submitting spark job from script $@"
                script_file=$1
                echo $script_file
                "$SPARKJOB_CONFIG_DIR/$script_file" "${@:2}"
 	fi
-
 else
 	echo "nothing to submit to spark. Run any script by yourself in interactive mode"
 fi
