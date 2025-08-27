@@ -21,6 +21,7 @@ JOBFILE can be:
 Required options:  
 	-l walltime=<v>		Max run time, e.g., -l walltime=30:00 for running 30 minutes at most
 	-l select=<v>		Job node count, e.g., -l select=2 for requesting 2 nodes
+	-l filesystems=<v>      Filesystem type, e.g., -l filesystems=flare:daos_user for requesting flare and daos filesystems
 	-q QUEUE		Queue name
 
 	Optional options:
@@ -33,10 +34,11 @@ Required options:
 	-n			Run without DAOS loaded
 	-h			Print this help messages
 Example:
-	submit-spark.sh -A Aurora_deployment -l walltime=60 -l select=2 -q workq dense_kmeans_example.py daos://pool0/cont1/kmeans/input/libsvm 10
-	submit-spark.sh -A Aurora_deployment -l walltime=30 -l select=1 -q workq -o output-dir run-example SparkPi
-	submit-spark.sh -A Aurora_deployment -I -l walltime=30 -l select=2 -q workq --class com.intel.jlse.ml.KMeansExample example/jlse-ml-1.0-SNAPSHOT.jar daos://pool0/cont1/kmeans/input/csv csv 10
-	submit-spark.sh -A Aurora_deployment -l walltime=30 -l select=1 -q workq -s example/test_script.sh job.log
+    submit-spark.sh -A Aurora_deployment -l walltime=60 -l select=2 -l filesystems=flare:daos_user -q workq kmeans-pyspark.py daos://pool0/cont1/kmeans/input/libsvm 10
+    submit-spark.sh -A Aurora_deployment -l walltime=30 -l select=1 -l filesystems=flare:daos_user -q workq -o output-dir run-example SparkPi
+    submit-spark.sh -A Aurora_deployment -I -l walltime=30 -l select=2 -l filesystems=flare:daos_user -q workq --class com.intel.jlse.ml.KMeansExample example/jlse-ml-1.0-SNAPSHOT.jar daos://pool0/cont1/kmeans/input/csv csv 10
+    submit-spark.sh -A Aurora_deployment -l walltime=30 -l select=1 -l filesystems=flare:daos_user -q workq -s example/test_script.sh job.log
+
 '
 
 declare -A resources
@@ -92,11 +94,14 @@ done
 key_time="walltime"
 key_node="select"
 key_daos="daos"
+key_filesystems="filesystems"
+
 [[ -z ${resources[$key_time]+X} ]] || declare -r time=${resources[$key_time]}
 [[ -z ${resources[$key_node]+X} ]] || declare -r nodes=${resources[$key_node]}
 [[ -z ${resources[$key_daos]+X} ]] || declare -r daos=${resources[$key_daos]}
+[[ -z ${resources[$key_filesystems]+X} ]] || declare -r filesystems=${resources[$key_filesystems]}
 
-if [[ -z ${time+X} || -z ${nodes+X} || -z ${queue+X} ]];then
+if [[ -z ${time+X} || -z ${nodes+X} || -z ${queue+X} || -z ${resources[$key_filesystems]+X} ]];then
 	echo "$usage"
 	exit 1
 fi
@@ -142,7 +147,7 @@ mysubmit() {
 	env_vars=${env_vars// /^}
 
 	local -a opt=(
-		-l "select=$nodes" -l "walltime=$time" -q $queue
+		-l "select=$nodes" -l "walltime=$time" -l "filesystems=$filesystems" -q $queue
 		-v $env_vars
 		-o "$SPARKJOB_OUTPUT_DIR"
 		-e "$SPARKJOB_OUTPUT_DIR"
