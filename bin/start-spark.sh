@@ -75,6 +75,6 @@ done
 cp "$PBS_NODEFILE" "$SPARK_CONF_DIR/nodes"
 cp "$SPARKJOB_CONFIG_DIR/log4j.properties" "$SPARK_CONF_DIR"
 
-export SPARK_MASTER_HOST=$(hostname)
+export SPARK_MASTER_HOST=$(hostname -I | awk '{print $2}') # Use the second IP which is HPE Slingshot(25Gb/s) ip.
 
 "$SPARKJOB_SCRIPTS_DIR/run-spark.sh" "${arguments[@]}"
