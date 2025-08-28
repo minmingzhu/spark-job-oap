@@ -44,11 +44,14 @@ spark.executor.extraJavaOptions      -XX:+UseG1GC -Djava.net.preferIPv4Stack=tru
 spark.executor.extraClassPath	     $SPARKJOB_ADD_JARS
 spark.driver.extraClassPath          $SPARKJOB_ADD_JARS
 
+spark.scheduler.maxRegisteredResourcesWaitingTime 600s // Set the maximum time to wait for resource registration to complete to 600s
+spark.scheduler.minRegisteredResourcesRatio 1.0   // Spark waits for all resources to be registered (i.e. 100% of resources)
+spark.cores.max  $(($EXECUTOR_NUM * 8)) //Total executor number for cluster
+spark.sql.files.maxPartitionBytes 1g
 
-
-spark.shuffle.manager=org.apache.spark.shuffle.daos.DaosShuffleManager
-spark.shuffle.daos.pool.uuid		Intel3
-spark.shuffle.daos.container.uuid	spark_shuffle
+# spark.shuffle.manager=org.apache.spark.shuffle.daos.DaosShuffleManager
+# spark.shuffle.daos.pool.uuid		Intel3
+# spark.shuffle.daos.container.uuid	spark_shuffle
 
 spark.eventLog.enabled               true
 spark.eventLog.dir                   file://$event_log_dir
@@ -66,16 +69,10 @@ spark.rpc.io.backLog	64000
 spark.rpc.io.receiveBuffer 1048576
 spark.rpc.io.sendBuffer 1048576
 
-
-#spark.locality.wait.process 3
-#spark.locality.wait.node 3600
-#spark.locality.wait 3600
-
 spark.task.maxFailures  4
 spark.stage.maxConsecutiveAttempts      1
 
 spark.shuffle.daos.read.wait.ms		600000
-#spark.local.dir /home/damon/tmp
 
 EOF
 
