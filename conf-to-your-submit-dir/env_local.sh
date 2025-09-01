@@ -44,9 +44,9 @@ spark.executor.extraJavaOptions      -XX:+UseG1GC -Djava.net.preferIPv4Stack=tru
 spark.executor.extraClassPath	     $SPARKJOB_ADD_JARS
 spark.driver.extraClassPath          $SPARKJOB_ADD_JARS
 
-spark.scheduler.maxRegisteredResourcesWaitingTime 600s // Set the maximum time to wait for resource registration to complete to 600s
-spark.scheduler.minRegisteredResourcesRatio 1.0   // Spark waits for all resources to be registered (i.e. 100% of resources)
-spark.cores.max  $(($EXECUTOR_NUM * 8)) //Total executor number for cluster
+spark.scheduler.maxRegisteredResourcesWaitingTime 600s
+spark.scheduler.minRegisteredResourcesRatio 1.0
+spark.cores.max  $(($EXECUTOR_NUM * 8))
 spark.sql.files.maxPartitionBytes 1g
 
 # spark.shuffle.manager=org.apache.spark.shuffle.daos.DaosShuffleManager
