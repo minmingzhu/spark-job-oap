@@ -31,4 +31,3 @@ cd $HIBENCH_DIR/bin/workloads/micro/repartition/spark
 check_file "$PWD/run.sh"
 
 ./run.sh
-
