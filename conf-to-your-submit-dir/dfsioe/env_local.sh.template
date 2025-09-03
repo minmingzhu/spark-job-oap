@@ -29,6 +29,7 @@ event_log_dir=$SPARKJOB_CONFIG_DIR/event_logs
 
 spark.executor.cores                 8
 spark.driver.memory                  128g
+spark.executor.instances             $EXECUTOR_NUM
 spark.executor.memory		     <EXECUTOR_MEMORY>
 
 
@@ -39,6 +40,11 @@ spark.executor.extraClassPath	     $SPARKJOB_ADD_JARS
 spark.driver.extraClassPath          $SPARKJOB_ADD_JARS
 
 spark.shuffle.compress=false
+
+spark.scheduler.maxRegisteredResourcesWaitingTime 600s
+spark.scheduler.minRegisteredResourcesRatio 1.0
+spark.cores.max  $(($EXECUTOR_NUM * 8))
+spark.sql.files.maxPartitionBytes 1g
 
 spark.shuffle.manager=org.apache.spark.shuffle.daos.DaosShuffleManager
 spark.shuffle.daos.pool.uuid		Intel

@@ -50,7 +50,7 @@ spark.cores.max  $(($EXECUTOR_NUM * 8))
 spark.sql.files.maxPartitionBytes 1g
 
 # spark.shuffle.manager=org.apache.spark.shuffle.daos.DaosShuffleManager
-# spark.shuffle.daos.pool.uuid		Intel3
+# spark.shuffle.daos.pool.uuid		Intel
 # spark.shuffle.daos.container.uuid	spark_shuffle
 
 spark.eventLog.enabled               true

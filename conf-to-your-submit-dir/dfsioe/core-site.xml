@@ -17,7 +17,7 @@
 <configuration>
   <property>
     <name>fs.defaultFS</name>
-    <value>daos://Intel3/hadoop_fs</value>
+    <value>daos://Intel/hadoop_fs</value>
   </property>
   <property>
     <name>hadoop.tmp.dir</name>
