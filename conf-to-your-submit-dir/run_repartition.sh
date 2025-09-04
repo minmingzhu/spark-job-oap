@@ -18,12 +18,12 @@ check_dir() {
 }
 
 
-check_file "$SPARKJOB_SCRIPTS_DIR/loop.sh"
+check_file "$SPARKJOB_CONFIG_DIR/loop.sh"
 check_file "$JAR_DIR/sparkbench-assembly-8.0-SNAPSHOT-dist.jar"
 check_dir "$HIBENCH_DIR"
 
-$SPARKJOB_SCRIPTS_DIR/loop.sh "pdsh -w ?? mkdir -p /var/tmp/spark/hibench_jars/"
-$SPARKJOB_SCRIPTS_DIR/loop.sh "scp $JAR_DIR/sparkbench-assembly-8.0-SNAPSHOT-dist.jar ?:/var/tmp/spark/hibench_jars/"
+$SPARKJOB_CONFIG_DIR/loop.sh "pdsh -w ?? mkdir -p /var/tmp/spark/hibench_jars/"
+$SPARKJOB_CONFIG_DIR/loop.sh "scp $JAR_DIR/sparkbench-assembly-8.0-SNAPSHOT-dist.jar ?:/var/tmp/spark/hibench_jars/"
 
 cd $HIBENCH_DIR/bin/workloads/micro/repartition/spark
 

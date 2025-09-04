@@ -7,10 +7,8 @@ usage="Usage:
 3. dfs read only: '... -s ./run_dfsioe.sh read', execute 'run_read.sh' under <HiBench Dir>/bin/workloads/micro/dfsioe/spark
 "
 
-
-UTIL_DIR=/home/jiafuzha/working
-JAR_DIR=/home/jiafuzha/jars
-HIBENCH_DIR=/home/jiafuzha/HiBench
+JAR_DIR=/lus/flare/projects/Aurora_deployment/spark/spark-job/jars
+HIBENCH_DIR=/lus/flare/projects/Aurora_deployment/spark/HiBench
 
 check_file() {
         if [ ! -f "$1" ]; then
@@ -27,17 +25,17 @@ check_dir() {
 }
 
 
-check_file "$UTIL_DIR/loop.sh"
+check_file "$SPARKJOB_CONFIG_DIR/loop.sh"
 check_file "$JAR_DIR/sparkbench-assembly-8.0-SNAPSHOT-dist.jar"
 check_dir "$HIBENCH_DIR"
 
-$UTIL_DIR/loop.sh "pdsh -w ?? mkdir -p /var/tmp/spark/hibench_jars/"
-$UTIL_DIR/loop.sh "scp $JAR_DIR/sparkbench-assembly-8.0-SNAPSHOT-dist.jar ?:/var/tmp/spark/hibench_jars/"
+$SPARKJOB_CONFIG_DIR/loop.sh "pdsh -w ?? mkdir -p /var/tmp/spark/hibench_jars/"
+$SPARKJOB_CONFIG_DIR/loop.sh "scp $JAR_DIR/sparkbench-assembly-8.0-SNAPSHOT-dist.jar ?:/var/tmp/spark/hibench_jars/"
 
 # give spark components more time to be ready
 sleep 10
 
-cd $HIBENCH_DIR/bin/workloads/micro/dfsioe/spark
+cd $HIBENCH_DIR/bin/workloads/micro/daos_benchmark/spark
 
 if [[ "$#" == 0 ]]; then
 	check_file "$PWD/run.sh"

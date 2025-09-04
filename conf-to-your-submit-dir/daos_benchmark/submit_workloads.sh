@@ -189,7 +189,7 @@ if [[ "$workload" == "$WORKLOAD_DFSIOE" ]]; then
 		echo "Error: missing $dfsioe_conf_temp. please copy it from spark-job conf folder. exiting"
 		exit 1
 	fi
-	tmp_file="$SCRIPT_PATH/workloads/.dfsioe.conf.tmp"
+	tmp_file="$SCRIPT_PATH/workloads/dfsioe.conf.tmp"
 	sed "s/<NUM_OF_FILES>/${scale_dfsioe[$scale]}/g" "$dfsioe_conf_temp" > "$tmp_file"
         cfg1=$(grep "hibench.dfsioe.large.read.number_of_files[[:space:]]\+${scale_dfsioe[$scale]}"  "$tmp_file" | sed 's/^[[:space:]]*//' | grep -v "^#")
 	cfg2=$(grep "hibench.dfsioe.large.write.number_of_files[[:space:]]\+${scale_dfsioe[$scale]}"  "$tmp_file" | sed 's/^[[:space:]]*//' | grep -v "^#")

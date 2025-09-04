@@ -40,7 +40,7 @@ ssh(){	# Intercept ssh call to pass more envs.  Requires spark using bash.
 		"${os[@]}" "$h" "bash -lc \"
 		SPARKJOB_HOST='$SPARKJOB_HOST' ; 
 		SPARKJOB_SCRIPTS_DIR='$SPARKJOB_SCRIPTS_DIR' ;
-	        SPARKJOB_CONFIG_DIR='$SPARKJOB_CONFIG_DIR' ;	
+	  SPARKJOB_CONFIG_DIR='$SPARKJOB_CONFIG_DIR' ;
 		SPARKJOB_OUTPUT_DIR='$SPARKJOB_OUTPUT_DIR' ; 
 		SPARKJOB_WORKING_DIR='$SPARKJOB_WORKING_DIR' ;  
 		SPARKJOB_OAPML='$SPARKJOB_OAPML' ;
@@ -57,7 +57,7 @@ ssh(){	# Intercept ssh call to pass more envs.  Requires spark using bash.
 		declare -p | grep SPARK	# Get SPARK related envs.
 		echo "declare -x SPARK_MASTER=${cs[${#cs[@]}-1]}"
 		echo "declare -x MASTER_HOST=$(hostname -I | awk '{print $2}')" # Use the second IP which is HPE Slingshot(25Gb/s) ip.
-        echo "declare -x SPARK_MASTER_IP=$(hostname -I | awk '{print $2}')" # Use the second IP which is HPE Slingshot(25Gb/s) ip.
+    echo "declare -x SPARK_MASTER_IP=$(hostname -I | awk '{print $2}')" # Use the second IP which is HPE Slingshot(25Gb/s) ip.
 	} > "$SPARKJOB_WORKING_ENVS"
 	echo "spark env file created: $SPARKJOB_WORKING_ENVS"
 	fi	# We don't release the mutex here, because we only need one copy of env.

@@ -39,7 +39,7 @@ fi
 
 rst=$(grep "ResultStage .* (foreach at ScalaDFSIOWriteOnly.scala:75) finished in .\+ s" "$logfile")
 
-# dfsioe
+# daos_benchmark
 if [[ ! -z "$rst" ]]; then
 	parse_duration "$rst" "dfsioe" "write"
 	if (( $? )); then
