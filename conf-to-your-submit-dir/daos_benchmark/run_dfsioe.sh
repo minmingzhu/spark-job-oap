@@ -7,7 +7,7 @@ usage="Usage:
 3. dfs read only: '... -s ./run_dfsioe.sh read', execute 'run_read.sh' under <HiBench Dir>/bin/workloads/micro/dfsioe/spark
 "
 
-JAR_DIR=/lus/flare/projects/Aurora_deployment/spark/spark-job/jars
+JAR_DIR=/lus/flare/projects/Aurora_deployment/spark/spark-job/HiBench/jars
 HIBENCH_DIR=/lus/flare/projects/Aurora_deployment/spark/HiBench
 
 check_file() {

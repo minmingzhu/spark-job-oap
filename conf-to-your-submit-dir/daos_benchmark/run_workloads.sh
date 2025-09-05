@@ -11,7 +11,7 @@ The fourth argument, <true|false, 1|0>, is option for use clean containers by re
 
 APPS_DIR=$1
 
-JAR_DIR=/lus/flare/projects/Aurora_deployment/spark/spark-job/jars
+JAR_DIR=/lus/flare/projects/Aurora_deployment/spark/spark-job/HiBench/jars
 HIBENCH_DIR=/lus/flare/projects/Aurora_deployment/spark/HiBench
 
 # set python path

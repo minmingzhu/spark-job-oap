@@ -8,7 +8,7 @@ if [[ "$SCRIPT_PATH" != "$HOME"* ]]; then
 fi
 
 # get apps root dir
-[[ -z ${APPS_DIR+X} ]] && declare APPS_DIR=/lus/flare/projects/Aurora_deployment/jiafuzha
+[[ -z ${APPS_DIR+X} ]] && declare APPS_DIR=/lus/flare/projects/Aurora_deployment/spark
 apps_dir=$APPS_DIR
 
 if [[ "$#" != 2 ]]; then
