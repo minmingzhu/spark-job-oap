@@ -35,7 +35,7 @@ $SPARKJOB_CONFIG_DIR/loop.sh "scp $JAR_DIR/sparkbench-assembly-8.0-SNAPSHOT-dist
 # give spark components more time to be ready
 sleep 10
 
-cd $HIBENCH_DIR/bin/workloads/micro/daos_benchmark/spark
+cd $HIBENCH_DIR/bin/workloads/micro/dfsioe/spark
 
 if [[ "$#" == 0 ]]; then
 	check_file "$PWD/run.sh"

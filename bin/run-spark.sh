@@ -131,7 +131,6 @@ sleep 10
 source "$SPARKJOB_WORKING_ENVS"
 echo $SPARK_MASTER
 echo "spark.master $SPARK_MASTER" >> "$SPARK_CONF_DIR/spark-defaults.conf"
-echo "spark.master $SPARK_MASTER" >> "$SPARK_CONF_DIR/spark-defaults.conf"
 # $(hostname -I | awk '{print $2}') which is HPE Slingshot(25Gb/s) ip.
 echo "spark.driver.host $(hostname -I | awk '{print $2}')" >> "$SPARK_CONF_DIR/spark-defaults.conf" 
 # shellcheck disable=SC2129

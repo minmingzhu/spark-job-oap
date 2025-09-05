@@ -205,7 +205,7 @@ if ((interactive>0)); then
 			echo source \'$SPARKJOB_SCRIPTS_DIR/setup.sh\';
 			echo source \'$SPARKJOB_WORKING_ENVS\'
 			echo cd \'$SPARKJOB_OUTPUT_DIR\';
-		        echo mkdir -p $SPARKJOB_OUTPUT_DIR/$SPARKJOB_JOBID/loggedin	) -i"
+		  echo mkdir -p $SPARKJOB_OUTPUT_DIR/$SPARKJOB_JOBID/loggedin	) -i"
 		echo "# Spawning bash on host: $MASTER_HOST"
 
 		"${sshmaster[@]}" "$runbash"
