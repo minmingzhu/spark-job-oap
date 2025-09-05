@@ -238,7 +238,7 @@ if [[ ! -e "$workload_script" ]]; then
         exit 1
 fi
 
-"$submit_script" -y -A Intel-Punchlist -l walltime=30:00 -l select=$nodes -l daos=default -l filesystems=flare -q nre-priority "$workload_script" "$apps_dir" $pool $workload $clean_container
+"$submit_script" -y -A Intel-Punchlist -l walltime=30:00 -l select=$nodes -l daos=daos_user  -l filesystems=flare:daos_user_fs -q nre-priority "$workload_script" "$apps_dir" $pool $workload $clean_container
 
 
 # 6.=========show job time by searching logs
