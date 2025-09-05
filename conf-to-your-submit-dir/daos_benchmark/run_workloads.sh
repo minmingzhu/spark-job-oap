@@ -11,17 +11,13 @@ The fourth argument, <true|false, 1|0>, is option for use clean containers by re
 
 APPS_DIR=$1
 
-JAR_DIR=/lus/flare/projects/Aurora_deployment/spark/spark-job/HiBench/jars
+JAR_DIR=/lus/flare/projects/Aurora_deployment/spark/HiBench/jars
 HIBENCH_DIR=/lus/flare/projects/Aurora_deployment/spark/HiBench
 
 # set python path
 export PATH=$APPS_DIR/python2/bin:$PATH
 python_path=$(which python)
 echo "using python $python_path"
-
-[[ -z ${DAOS_POOL+X} ]] && declare DAOS_POOL=Intel
-pool=${DAOS_POOL}
-echo "Using DAOS pool $pool"
 
 check_file() {
         if [ ! -f "$1" ]; then
@@ -74,12 +70,12 @@ else
 	exit 1
 fi
 
-check_file "$SPARKJOB_SCRIPTS_DIR/loop.sh"
+check_file "$SPARKJOB_CONFIG_DIR/loop.sh"
 check_file "$JAR_DIR/sparkbench-assembly-8.0-SNAPSHOT-dist.jar"
 check_dir "$HIBENCH_DIR"
 
-$SPARKJOB_SCRIPTS_DIR/loop.sh "pdsh -w ?? mkdir -p /var/tmp/spark/hibench_jars/"
-$SPARKJOB_SCRIPTS_DIR/loop.sh "scp $JAR_DIR/sparkbench-assembly-8.0-SNAPSHOT-dist.jar ?:/var/tmp/spark/hibench_jars/"
+$SPARKJOB_CONFIG_DIR/loop.sh "pdsh -w ?? mkdir -p /var/tmp/spark/hibench_jars/"
+$SPARKJOB_CONFIG_DIR/loop.sh "scp $JAR_DIR/sparkbench-assembly-8.0-SNAPSHOT-dist.jar ?:/var/tmp/spark/hibench_jars/"
 
 
 cd $script_folder

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-JAR_DIR=/lus/flare/projects/Aurora_deployment/spark/spark-job/HiBench/jars
+JAR_DIR=/lus/flare/projects/Aurora_deployment/spark/HiBench/jars
 HIBENCH_DIR=/lus/flare/projects/Aurora_deployment/spark/HiBench
 
 check_file() {
