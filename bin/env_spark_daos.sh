@@ -35,7 +35,8 @@ SCRIPT_PATH=$(dirname "$BASH_SOURCE")
 source $SPARKJOB_SCRIPTS_DIR/setup-common.sh
 
 # MORE SPARK DIR
-export SPARK_WORKER_DIR="/tmp/workers-${USER}"
+export SPARK_WORKER_DIR="${SPARKJOB_OUTPUT_DIR}/spark_worker_log"
+# export SPARK_WORKER_DIR="/tmp/workers-${USER}"
 [[ -z ${SPARKJOB_WORKING_DIR+X} ]] && declare SPARKJOB_WORKING_DIR="$(pwd)"
 export SPARK_CONF_DIR="$SPARKJOB_WORKING_DIR/conf"
 export SPARK_LOG_DIR="$SPARKJOB_WORKING_DIR/logs"

@@ -40,7 +40,7 @@ ssh(){	# Intercept ssh call to pass more envs.  Requires spark using bash.
 		"${os[@]}" "$h" "bash -lc \"
 		SPARKJOB_HOST='$SPARKJOB_HOST' ; 
 		SPARKJOB_SCRIPTS_DIR='$SPARKJOB_SCRIPTS_DIR' ;
-	        SPARKJOB_CONFIG_DIR='$SPARKJOB_CONFIG_DIR' ;	
+	  SPARKJOB_CONFIG_DIR='$SPARKJOB_CONFIG_DIR' ;
 		SPARKJOB_OUTPUT_DIR='$SPARKJOB_OUTPUT_DIR' ; 
 		SPARKJOB_WORKING_DIR='$SPARKJOB_WORKING_DIR' ;  
 		SPARKJOB_OAPML='$SPARKJOB_OAPML' ;
@@ -56,7 +56,8 @@ ssh(){	# Intercept ssh call to pass more envs.  Requires spark using bash.
 	{
 		declare -p | grep SPARK	# Get SPARK related envs.
 		echo "declare -x SPARK_MASTER=${cs[${#cs[@]}-1]}"
-		echo "declare -x MASTER_HOST=$(hostname)"
+		echo "declare -x MASTER_HOST=$(hostname -I | awk '{print $2}')"
+    echo "declare -x SPARK_MASTER_IP=$(hostname -I | awk '{print $2}')"
 	} > "$SPARKJOB_WORKING_ENVS"
 	echo "spark env file created: $SPARKJOB_WORKING_ENVS"
 	fi	# We don't release the mutex here, because we only need one copy of env.
@@ -130,6 +131,13 @@ sleep 10
 source "$SPARKJOB_WORKING_ENVS"
 echo $SPARK_MASTER
 echo "spark.master $SPARK_MASTER" >> "$SPARK_CONF_DIR/spark-defaults.conf"
+# $(hostname -I | awk '{print $2}') which is HPE Slingshot(25Gb/s) ip.
+echo "spark.driver.host $(hostname -I | awk '{print $2}')" >> "$SPARK_CONF_DIR/spark-defaults.conf" 
+# shellcheck disable=SC2129
+echo "export SPARK_MASTER_IP=$(hostname -I | awk '{print $2}')" >> "$SPARK_CONF_DIR/spark-env.sh"
+echo "export SPARK_MASTER_HOST=$(hostname -I | awk '{print $2}')" >> "$SPARK_CONF_DIR/spark-env.sh"
+echo "export SPARK_MASTER_PORT=7077" >> "$SPARK_CONF_DIR/spark-env.sh"
+
 # startup shuffle server as necessary
 # $SPARKJOB_SCRIPTS_DIR/start-shuffle-server.sh
 
@@ -150,12 +158,13 @@ if (($#>0));then
 	elif [[ $1 == spark-submit ]];then
 		echo "submitting spark job $@"
 		"$SPARK_HOME/bin/spark-submit" --master $SPARK_MASTER $GPU_OPTIONS "$@"
-        else
-               echo "submitting spark job from script $@"
-               script_file=$1
-               echo $script_file
-               "$SPARKJOB_CONFIG_DIR/$script_file" "${@:2}"
-	fi
+	else
+     echo "submitting spark job from script $@"
+     script_file=$1
+     echo $script_file
+     "$SPARKJOB_CONFIG_DIR/$script_file" "${@:2}"
+  fi
+
 else
 	echo "nothing to submit to spark. Run any script by yourself in interactive mode"
 fi

@@ -87,16 +87,16 @@ if __name__ == "__main__":
         model = pipeline.fit(trainingData)
 
         # Make predictions.
-        predictions = model.transform(testData)
+        # predictions = model.transform(testData)
 
-        # Select example rows to display.
-        predictions.select("predictedLabel", "label", "features").show(5)
+        # # Select example rows to display.
+        # predictions.select("predictedLabel", "label", "features").show(5)
 
-        # Select (prediction, true label) and compute test error
-        evaluator = MulticlassClassificationEvaluator(
-            labelCol="indexedLabel", predictionCol="prediction", metricName="accuracy")
-        accuracy = evaluator.evaluate(predictions)
-        print("Test Error = %g" % (1.0 - accuracy))
+        # # Select (prediction, true label) and compute test error
+        # evaluator = MulticlassClassificationEvaluator(
+        #     labelCol="indexedLabel", predictionCol="prediction", metricName="accuracy")
+        # accuracy = evaluator.evaluate(predictions)
+        # print("Test Error = %g" % (1.0 - accuracy))
 
         rfModel = model.stages[2]
         print(rfModel.toDebugString)  # summary only

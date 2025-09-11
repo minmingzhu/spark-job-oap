@@ -18,7 +18,11 @@ export SPARKJOB_CONFIG_DIR
 	declare SPARKJOB_OUTPUT_DIR="$(pwd)"
 export SPARKJOB_OUTPUT_DIR
 
-NNODES=$(wc -l < "$PBS_NODEFILE")
+if ((SPARKJOB_SEPARATE_MASTER>0));then
+  NNODES=$(( $(wc -l < "$PBS_NODEFILE") - 1 ))
+else
+	NNODES=$(wc -l < "$PBS_NODEFILE")
+fi
 export EXECUTOR_NUM=$((12 * NNODES))
 
 source "$SPARKJOB_SCRIPTS_DIR/setup.sh"
@@ -75,6 +79,7 @@ done
 cp "$PBS_NODEFILE" "$SPARK_CONF_DIR/nodes"
 cp "$SPARKJOB_CONFIG_DIR/log4j.properties" "$SPARK_CONF_DIR"
 
-export SPARK_MASTER_HOST=$(hostname)
+# Use the second IP which is HPE Slingshot(25Gb/s) ip.
+export SPARK_MASTER_HOST=$(hostname -I | awk '{print $2}')
 
 "$SPARKJOB_SCRIPTS_DIR/run-spark.sh" "${arguments[@]}"
