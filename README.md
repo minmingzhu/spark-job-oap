@@ -35,7 +35,7 @@ spark-job
 
 The following sections give a detailed example about how to submit a job.
 
-### Git clone spark-jon repo
+### Git clone spark-job repo
 ```shell
 $ cd $HOME
 $ git clone https://github.com/oap-project/spark-job.git
