@@ -1,7 +1,3 @@
-echo "loading spark module"
-module use /home/damon/spark_module/modulefiles/
-module load spark/3.2.0
-
 [[ -z ${SPARKJOB_DAOS+X} ]] && declare -ir SPARKJOB_DAOS=1
 if [ "$SPARKJOB_DAOS" -gt 0 ];then
         echo "loading DAOS module"

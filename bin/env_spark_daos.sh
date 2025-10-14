@@ -1,3 +1,7 @@
+echo "loading spark module"
+module use /home/damon/spark_module/modulefiles/
+module load spark/3.2.0
+
 [[ -z ${SPARKJOB_OUTPUT_DIR+X} ]] && declare SPARKJOB_OUTPUT_DIR="$(pwd)"
 [[ -z ${SPARKJOB_CONFIG_DIR+X} ]] && declare SPARKJOB_CONFIG_DIR="$(pwd)"
 
