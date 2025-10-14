@@ -47,7 +47,7 @@ The spark-job/conf-to-your-submit-dir/ directory contains configuration files yo
 For example:
 ```shell
 $ mkdir ~/spark_work_home
-$ cp $HOME/spark-job/conf-to-your-submit-dir/* ~/spark_work_home
+$ cp $HOME/spark-job/submitdir/* ~/spark_work_home
 ```
 
 ### Submit Spark Job
