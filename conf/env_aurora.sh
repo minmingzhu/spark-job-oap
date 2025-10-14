@@ -9,6 +9,7 @@ if [ "$SPARKJOB_DAOS" -gt 0 ];then
 else
         echo "no DAOS module"
 fi
+
 # set Spark Worker resources
 export SPARK_WORKER_CORES=96
 export SPARK_WORKER_MEMORY=500G
@@ -28,10 +29,3 @@ if [[ $spark_ip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
 else
 	echo "not able to get ip from hsn7"
 fi
-# bind to hsn1
-#spark_ip=$(ip -f inet addr show hsn1 | sed -En -e 's/.*inet ([0-9.]+).*/\1/p')
-#if [[ $spark_ip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-#	export SPARK_DRIVER_HOST=$spark_ip
-#else
-#	echo "not able to get ip from hsn1"
-#fi
