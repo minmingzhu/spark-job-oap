@@ -5,6 +5,10 @@ module load spark/3.2.0
 [[ -z ${SPARKJOB_OUTPUT_DIR+X} ]] && declare SPARKJOB_OUTPUT_DIR="$(pwd)"
 [[ -z ${SPARKJOB_CONFIG_DIR+X} ]] && declare SPARKJOB_CONFIG_DIR="$(pwd)"
 
+if [ "$SPARKJOB_DAOS" -gt 0 ];then
+    cp $SPARKJOB_OUTPUT_DIR/core-site.xml $HADOOP_CONF_DIR
+fi
+
 # LOAD DAOS and STARTUP DAOS AGENT
 SCRIPT_PATH=$(dirname "$BASH_SOURCE")
 

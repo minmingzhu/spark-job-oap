@@ -1,7 +1,7 @@
 module load oneapi/release/2024.2.1
 ml use /opt/aurora/24.347.0/spack/unified/0.9.2/install/modulefiles/Core
 ml gcc/13.3.0
-source /soft/spark/oneCCL/build/_install/env/vars.sh --ccl-bundled-mpi=no
+#source /soft/spark/oneCCL/build/_install/env/vars.sh --ccl-bundled-mpi=no
 SECOND_IP=$(hostname -I | awk '{print $2}')
 export SPARK_LOCAL_IP=$SECOND_IP
 export CCL_TOPO_FABRIC_VERTEX_CONNECTION_CHECK=0
@@ -19,4 +19,3 @@ export FI_CXI_OFLOW_BUF_SIZE=8388608
 export CCL_ZE_IPC_EXCHANGE=sockets
 export CCL_KVS_GET_TIMEOUT=1200
 export ZE_ENABLE_PCI_ID_DEVICE_ORDER=1
-
